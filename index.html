@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="confusionApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head 
+         content must come *after* these tags -->
+    
+    <title>Ristorante Con Fusion</title>    
+        <!-- Bootstrap -->
+<!-- build:css styles/main.css -->
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- endbuild -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <form class="form-horizontal" name="form" ng-submit="sendFeedback()" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : form.firstname.$error.required && !form.firstname.$pristine }">
+            <label for="firstname" class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter Your Username" ng-model="feedback.firstName" required>
+                <span ng-show="form.firstname.$error.required && !form.firstname.$pristine" class="help-block">Your First name is required.</span>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : form.lastname.$error.required && !form.lastname.$pristine }">
+            <label for="lastname" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type='password' class="form-control" id="lastname"  placeholder="Enter Your Password" ng-model="feedback.lastName" required>
+                <span ng-show="form.lastname.$error.required && !form.lastname.$pristine" class="help-block">Your Last name is required.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="telnum" class="col-sm-2 control-label">Contact Tel.</label>
+            <div class="col-xs-5 col-sm-4 col-md-3">
+                <div class="input-group">
+                    <div class="input-group-addon">(</div>
+                        <input type="tel" class="form-control" placeholder="Area code" ng-model="feedback.tel.areaCode">
+                    <div class="input-group-addon">)</div>
+                </div>
+            </div>
+            <div class="col-xs-7 col-sm-6 col-md-7">
+                 <input type="tel" class="form-control" id="telnum" name="telnum" placeholder="Tel. number" ng-model="feedback.tel.number">
+            </div>
+        </div>
+        <div class="form-group"  ng-class="{ 'has-error has-feedback' : form.emailid.$invalid && !form.emailid.$pristine }">
+
+            <label for="emailid" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Email" ng-model="feedback.email" required>
+                <span ng-show="form.emailid.$invalid && !form.emailid.$pristine" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+            <span ng-show="(form.emailid.$invalid ||
+                            form.emailid.$error.required) &&
+                            !form.emailid.$pristine"
+                 class="help-block">Enter a valid email address.</span>
+            </div>
+        </div>                      
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Send Feedback</button>
+            </div>
+        </div>
+        
+    </form>
+    
+
+<!-- build:js scripts/main.js -->
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="scripts/controllers.js"></script>
+    <script src="scripts/services.js"></script>
+<!-- endbuild -->
+
+</body>
+
+</html>
