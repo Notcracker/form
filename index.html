@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="confusionApp">
+<html lang="en" ng-app="myApp">
 
 <head>
     <meta charset="utf-8">
@@ -24,34 +24,35 @@
     <![endif]-->
 </head>
 
-<body>
+<body ng-controller="formController" >
   <div class="row col-md-offset-3">
     <div class="jumbotron col-md-7">
       <h1 class="col-md-offset-1">Form Validation</h1>
     </div>
   </div>
-    <div class="row col-md-offset-3">
-    <form class="form-horizontal col-md-7" name="form" ng-submit="sendFeedback()" novalidate>
-        <div class="form-group" ng-class="{ 'has-error' : form.firstname.$error.required && !form.firstname.$pristine }">
-            <label for="firstname" class="col-sm-2 control-label">Username</label>
+  <div class="row col-md-offset-3">
+    <h1 ng-repeat="error in errors.common">{{error}} </h1>
+    <form class="form-horizontal col-md-7" name="form" ng-submit="sendForm()" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : form.username.$error.required && !form.username.$pristine }">
+            <label for="username" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter Your Username" ng-model="feedback.firstName" ng-minlength="6" required>
-                <span ng-show="form.firstname.$invalid && form.firstname.$error.required && !form.firstname.$pristine" class="help-block">Your Username is required.</span>
-                <span ng-show="form.firstname.$invalid && !form.firstname.$pristine" class="help-block">Your Username must be at least 6 characters long.</span>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" ng-model="myForm.username" ng-minlength="6" required> <span ng-repeat='error in errors.username'>{{error}} </span>
+                <span ng-show="form.username.$invalid && form.username.$error.required && !form.username.$pristine" class="help-block">Your Username is required.</span>
+                <span ng-show="form.username.$invalid && !form.username.$pristine" class="help-block">Your Username must be at least 6 characters long.</span>
             </div>
         </div>
-        <div class="form-group" ng-class="{ 'has-error' : form.lastname.$error.required && !form.lastname.$pristine }">
-            <label for="lastname" class="col-sm-2 control-label">Password</label>
+        <div class="form-group" ng-class="{ 'has-error' : form.password.$error.required && !form.password.$pristine }">
+            <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-                <input type='password' class="form-control" id="lastname" name="lastname" ng-pattern="/(([A-ZА-Я]+.*\d+)|(\d+.*[A-ZА-Я]+))/" placeholder="Enter Your Password" ng-model="feedback.lastName" required>
-                <span ng-show="form.lastname.$error.required && !form.lastname.$pristine" class="help-block">Your password is required.</span>
-                <span ng-show="form.lastname.$invalid && !form.lastname.$pristine" class="help-block">Your password must contain at least 1 uppercase letter and 1 number.</span>
+                <input type='password' class="form-control" id="password" name="password" ng-pattern="/(([A-ZА-Я]+.*\d+)|(\d+.*[A-ZА-Я]+))/" placeholder="Enter Your Password" ng-model="myForm.password" required><span ng-repeat='error in errors.password'>{{error}} </span>
+                <span ng-show="form.password.$error.required && !form.password.$pristine" class="help-block">Your password is required.</span>
+                <span ng-show="form.password.$invalid && !form.password.$pristine" class="help-block">Your password must contain at least 1 uppercase letter and 1 number.</span>
             </div>
         </div>
         <div class="form-group" ng-class="{ 'has-error' : form.telnum.$error.required && !form.telnum.$pristine }">
             <label for="telnum" class="col-sm-2 control-label">Contact Tel.</label>
-            <div class="col-xs-7 col-sm-6 col-md-7">
-                <input type="tel" id="telnum" name="telnum" class="form-control" ng-model="feedback.tel.number" ui-mask="{{'(999) 999-99-99'}}" required/>
+            <div class="col-xs-7 col-sm-6 col-md-3">
+                <input type="tel" id="telnum" name="telnum" class="form-control" ng-model="myForm.phone" ui-mask="{{'(999) 999-99-99'}}" required/><span ng-repeat='error in errors.phone'>{{error}} </span>
                 <span ng-show="form.telnum.$error.required && !form.telnum.$pristine" class="help-block">Enter a valid phone number.</span>
             </div>
         </div>
@@ -59,7 +60,7 @@
 
             <label for="emailid" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Email" ng-model="feedback.email" required>
+                <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Email" ng-model="myForm.email" required><span ng-repeat='error in errors.email'>{{error}} </span>
                 <span ng-show="form.emailid.$invalid && !form.emailid.$pristine" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             <span ng-show="(form.emailid.$invalid ||
                             form.emailid.$error.required) &&
@@ -69,10 +70,9 @@
         </div>                      
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Send Feedback</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Send Form</button>
             </div>
         </div>
-        
     </form>
   </div>
 
